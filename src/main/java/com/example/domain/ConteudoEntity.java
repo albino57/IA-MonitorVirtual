@@ -2,6 +2,7 @@ package com.example.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnTransformer;
 
 @Data
 @Entity
@@ -16,5 +17,6 @@ public class ConteudoEntity {
     private String texto;
 
     @Column(name = "embedding", columnDefinition = "vector")
+    @ColumnTransformer(write = "?::vector")
     private String embedding;
 }
