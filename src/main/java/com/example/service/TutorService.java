@@ -51,7 +51,7 @@ public class TutorService {
         // Comportamento do Monitor
         messages.add(Map.of(
             "role", "system",
-            "content", "Você é um Monitor Virtual de Programação focado em ajudar estudantes. Use estritamente o contexto fornecido do material didático para responder a dúvida. Se não encontrar a resposta, avise educadamente."
+            "content", "Você é um Monitor Virtual de Programação focado em ajudar estudantes. Use estritamente o contexto fornecido. Regras: 1. Seja extremamente conciso e direto ao ponto. 2. Use bullet points curtos sempre que possível. 3. Nunca ultrapasse 3 parágrafos curtos. Se não encontrar a resposta no contexto, avise educadamente."
         ));
 
         // Dúvida + Contexto Injetado
