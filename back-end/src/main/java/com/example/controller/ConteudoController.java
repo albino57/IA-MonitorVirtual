@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/conteudo")
+@CrossOrigin(origins = "*")
 public class ConteudoController {
 
     private final ConteudoRepository repository;
