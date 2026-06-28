@@ -2,15 +2,18 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(135deg, #0a1628, #1a3a6e, #1565c0);
 }
 
 .header {
-  background-color: #1e1e2e;
+  background-color: #0d1b2a;
   color: white;
   padding: 16px 32px;
+  border-bottom: 2px solid #1565c0;
 }
 
 .main {
   flex: 1;
   padding: 32px;
+  color: white;
 }
