@@ -17,6 +17,7 @@ function App() {
     setMessages(novasMensagens)
     setInput('')
     setIsLoading(true)
+    
 
     try {
       const response = await fetch('http://localhost:8082/api/chat', {
