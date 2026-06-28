@@ -13,6 +13,7 @@ public class TutorService {
     private final ConteudoRepository repository;
     private final RestTemplate restTemplate;
     private final EmbeddingService embeddingService; // Injetando o novo serviço
+    private final N8nService n8nService;
 
     @Value("${groq.api.key}")
     private String groqApiKey;
@@ -20,22 +21,24 @@ public class TutorService {
     private final String GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 
     // Atualize o construtor para receber o EmbeddingService
-    public TutorService(ConteudoRepository repository, EmbeddingService embeddingService) {
+    public TutorService(ConteudoRepository repository, EmbeddingService embeddingService, N8nService n8nService) {
         this.repository = repository;
         this.embeddingService = embeddingService;
         this.restTemplate = new RestTemplate();
+        this.n8nService = n8nService;
     }
 
     public String responderEstudante(String pergunta) {
-        // 1. Agora geramos o vetor real da pergunta usando a OpenAI!
+        
         String vetorDaPergunta = embeddingService.gerarVetor(pergunta); 
 
-        // 2. Busca o contexto no banco de dados (o restante continua igual)
         List<String> contextos = repository.buscarContextoSemelhante(vetorDaPergunta, 3);
         String contextoConsolidado = String.join("\n", contextos);
 
-        // 3. Monta o prompt e chama o Groq
-        return chamarGroq(pergunta, contextoConsolidado);
+        String respostaFinal = chamarGroq(pergunta, contextoConsolidado);
+        n8nService.registrarAuditoria(pergunta, respostaFinal);
+        
+        return respostaFinal;
     }
 
     private String chamarGroq(String pergunta, String contexto) {
